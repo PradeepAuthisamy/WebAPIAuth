@@ -31,7 +31,8 @@ namespace AuthWebApi
                 auth.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
                 auth.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
             }).AddJwtBearer
-            (x=> {
+            (x =>
+            {
                 x.RequireHttpsMetadata = false;
                 x.SaveToken = true;
                 x.TokenValidationParameters = new TokenValidationParameters
@@ -41,7 +42,7 @@ namespace AuthWebApi
                     ValidateAudience = false,
                     ValidateIssuer = false
                 };
-                });
+            });
             services.AddSingleton<IJWTTokenManager>(new JWTTokenManager(key));
             services.AddSwaggerGen(c =>
             {

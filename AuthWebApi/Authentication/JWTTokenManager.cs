@@ -12,9 +12,10 @@ namespace AuthWebApi.Authentication
     public class JWTTokenManager : IJWTTokenManager
     {
         private readonly string _key;
+
         private readonly Dictionary<string, string> credentialHub = new()
         {
-            {"Pradeep","Pradeeptce@01" }
+            { "Pradeep", "Pradeeptce@01" }
         };
 
         public JWTTokenManager(string key)
@@ -22,10 +23,9 @@ namespace AuthWebApi.Authentication
             _key = key;
         }
 
-
         public string GetToken(string userName, string passWord)
         {
-            if(!credentialHub.Any(cred => cred.Key == userName && cred.Value == passWord))
+            if (!credentialHub.Any(cred => cred.Key == userName && cred.Value == passWord))
             {
                 return null;
             }
@@ -39,11 +39,10 @@ namespace AuthWebApi.Authentication
                     new Claim(ClaimTypes.Name,userName) }
                  ),
                 Expires = DateTime.UtcNow.AddHours(1),
-                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(tokenKey), SecurityAlgorithms.HmacSha256Signature)             
+                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(tokenKey), SecurityAlgorithms.HmacSha256Signature)
             };
             var token = tokenHandler.CreateToken(tokenDescriptor);
             return tokenHandler.WriteToken(token);
         }
     };
 };
-

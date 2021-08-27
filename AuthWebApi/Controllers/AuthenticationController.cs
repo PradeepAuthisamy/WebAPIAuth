@@ -18,8 +18,8 @@ namespace AuthWebApi.Controllers
         }
 
         [AllowAnonymous]
-        [HttpPost("GetToken")]        
-        public IActionResult GetToken([FromBody]UserCredential userCredential)
+        [HttpPost("GetToken")]
+        public IActionResult GetToken([FromBody] UserCredential userCredential)
         {
             var token = _jwtTokenManager.GetToken(userCredential.UserName, userCredential.PassWord);
             if (string.IsNullOrEmpty(token))
@@ -28,6 +28,5 @@ namespace AuthWebApi.Controllers
             }
             return Ok(token);
         }
-
     }
 }
